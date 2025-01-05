@@ -24,12 +24,12 @@ public class Main {
         String[] participantsName = getInput(PARTICIPANTS_PROMPT, participantsCounts, scanner);
         String[] results = getInput(RESULTS_PROMPT, participantsCounts, scanner);
 
-
         // 사다리 높이 설정
         int ladderHeight = participantsCounts * HEIGHT_MULTIPLIER;
 
         // 사다리 생성
         Ladder ladder = new Ladder(participantsCounts, ladderHeight);
+        ladder.generateLadderGreedy();
 
         // 사다리 출력
         ladder.printLadder(participantsName, results);

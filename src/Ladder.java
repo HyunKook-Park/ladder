@@ -3,16 +3,20 @@ import java.util.Map;
 import java.util.Random;
 
 public class Ladder {
-    private static final double LADDER_PROBABILITY = 0.5; // 가로선 생성 확률
+    private final int width;
+    private final int height;
     private final boolean[][] ladder;
-    private int width;
+
+    private static final double LADDER_PROBABILITY = 0.5; // 가로선 생성 확률
 
     public Ladder(int width, int height) {
-        this.ladder = generateLadderGreedy(width, height);
+        this.width = width;
+        this.height = height;
+        this.ladder = generateLadderGreedy();
     }
 
     // 사다리 생성(greedy algorithm)
-    public boolean[][] generateLadderGreedy(int width, int height) {
+    public boolean[][] generateLadderGreedy() {
         Random random = new Random();
 
         boolean[][] ladder = new boolean[height][width - 1];
@@ -33,11 +37,8 @@ public class Ladder {
 
     // 참가자 출력
     public void printLadder(String[] participantsName, String[] results) {
-        width = participantsName.length;
-
         // 참가자 출력
         System.out.println("\n[참가자]");
-
         for (String participant : participantsName) {
             System.out.print(participant + "\t");
         }
@@ -45,7 +46,6 @@ public class Ladder {
 
         // 사다리 출력
         System.out.println("\n[사다리]");
-
         for (boolean[] row : ladder) {
             StringBuilder rowStr = new StringBuilder("|");
             for (int j = 0; j < width-1; j++) {
@@ -56,7 +56,6 @@ public class Ladder {
 
         // 당첨 항목 출력
         System.out.println("\n[당첨 항목]");
-
         for (String result : results) {
             System.out.print(result + "\t");
         }
@@ -64,12 +63,10 @@ public class Ladder {
     }
 
     public Map<String, String> calculateResults(String[] participantsName, String[] results){
-        width = participantsName.length;
         Map<String, String> finalResults = new HashMap<>();
-
-        // 참가자 인덱스 정렬
         int[] positions = new int[width];
 
+        // 참가자 인덱스 정렬
         for (int i = 0; i < width; i++) {
             positions[i] = i;
         }
